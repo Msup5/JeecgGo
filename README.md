@@ -3,28 +3,41 @@ JeecgGo 综合漏洞利用工具, 基于Go语言开发, 使用时, 需下载主�
 # 漏洞如下
 ## SQL注入
   queryTableData SQL注入漏洞
+  
   qurestSql SQL注入漏洞
   
   getTotalData SQL注入漏洞
   
   show SQL注入漏洞
+  
   getDictItemsByTable SQL注入漏洞
+  
   check SQL注入漏洞
+  
   getDictItemsByTable 后台未授权SQL注入漏洞
+  
   column 参数SQL注入漏洞
 ## 命令执行
   testConnection 远程命令执行漏洞
+  
   loadTableData SSTI模板注入漏洞
+  
   queryFieldBySql 模板注入漏洞
+  
   sendMsg freemaker模板注入
+  
   AviatorScript 表达式注入漏洞
 ## 文件上传
   /jmreport/upload 接口未授权任意文件上传漏洞
+  
   commonController.do  任意文件上传漏洞
 ## 信息泄露
   querySysUser 信息泄露漏洞
+  
   checkOnlyUser 信息泄露漏洞
+  
   httptrace 信息泄露漏洞
+  
   dataSource_list 接口数据库账号密码泄露
 ## passwordChange任意用户密码重置漏洞
 # 使用说明
