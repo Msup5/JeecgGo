@@ -1,5 +1,5 @@
 # JeecgBoot Go版本综合漏洞利用工具
-JeecgGo 综合漏洞利用工具, 基于Go语言开发, 使用时, 需下载主程序以及 config.yaml（POC）文件放在同一目录下运行
+JeecgGo 综合漏洞利用工具, 基于Go语言开发, 使用时, 需下载主程序以及config.yaml（POC）文件放在同一目录下运行, 运行结束后会生成result.json文件, 里边包含检测到存在漏洞的URL, 以及payload和响应内容。
 # 漏洞如下
 ## SQL注入
   queryTableData SQL注入漏洞
