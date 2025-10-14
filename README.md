@@ -4,7 +4,9 @@ JeecgGo 综合漏洞利用工具, 基于Go语言开发, 使用时, 需下载主�
 ## SQL注入
   queryTableData SQL注入漏洞
   qurestSql SQL注入漏洞
+  
   getTotalData SQL注入漏洞
+  
   show SQL注入漏洞
   getDictItemsByTable SQL注入漏洞
   check SQL注入漏洞
