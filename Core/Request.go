@@ -166,31 +166,30 @@ func RoutineRequest() {
 
 			// /jmreport/qurestSql 接口SQL注入
 			case "qurestSql":
-				if strings.Contains(string(body), "发布模式不允许使用在线配置") {
-					continue
-				}
 				var sendMsgResults common.QurestSql
 
 				if err := json.Unmarshal([]byte(body), &sendMsgResults); err != nil {
 					common.Colors(common.ColorRed).Printf("[*]解析 json 失败, %v\n", err)
 					continue
 				}
-
-				if !strings.Contains(sendMsgResults.Message, "错误") {
-					common.Colors(common.ColorGreen).Printf("[+]%s 存在 %s 漏洞\n", Urls, name)
-
-					for _, content := range sendMsgResults.QurestSqlResult {
-						common.Colors(common.ColorYellow).Printf("[+++]dbname: %s, version: %s\n", content.GData, content.TData)
-					}
-
-					common.OutputFile(Urls+requestConfig.URL, requestConfig.Body, string(body))
+				if sendMsgResults.QurestSqlResult == nil {
+					continue
 				}
+
+				common.Colors(common.ColorGreen).Printf("[+]%s 存在 %s 漏洞\n", Urls, name)
+
+				for _, content := range sendMsgResults.QurestSqlResult {
+					common.Colors(common.ColorYellow).Printf("[+++]dbname: %s, version: %s\n", content.GData, content.TData)
+				}
+
+				common.OutputFile(Urls+requestConfig.URL, requestConfig.Body, string(body))
 
 			// /jmreport/loadTableData SSTI模板注入漏洞
 			case "loadTableData_poc_1":
-				if strings.Contains(string(body), "发布模式不允许使用在线配置") {
+				if common.LoadTableData_poc_1.LoadTableDataResult.LoadTableDataRecords == nil {
 					continue
 				}
+
 				common.Colors(common.ColorGreen).Printf("[+]%s 存在loadTableData SSTI模板注入漏洞, %s\n", Urls, name)
 				// var loadTabResult common.LoadTableData
 
@@ -208,6 +207,10 @@ func RoutineRequest() {
 
 				common.OutputFile(Urls+requestConfig.URL, requestConfig.Body, string(body))
 			case "loadTableData_poc_2":
+				if common.LoadTableData_poc_1.LoadTableDataResult.LoadTableDataRecords == nil {
+					continue
+				}
+
 				common.Colors(common.ColorGreen).Printf("[+]%s 存在loadTableData SSTI模板注入漏洞, %s\n", Urls, name)
 				// var loadTabResult common.LoadTableData
 
@@ -227,6 +230,9 @@ func RoutineRequest() {
 
 			// /jmreport/queryFieldBySql 模板注入
 			case "queryFieldBySql":
+				if common.QueryFieldBySql.QueryFieldBySqlResult.QueryFieldBySqlFieldList == nil {
+					continue
+				}
 				common.Colors(common.ColorGreen).Printf("[+]%s 存在queryFieldBySql模板注入漏洞\n", Urls)
 
 				if err := json.Unmarshal([]byte(body), &common.QueryFieldBySql); err != nil {
