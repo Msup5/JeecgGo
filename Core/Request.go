@@ -186,11 +186,6 @@ func RoutineRequest() {
 
 			// /jmreport/loadTableData SSTI模板注入漏洞
 			case "loadTableData_poc_1":
-				if common.LoadTableData_poc_1.LoadTableDataResult.LoadTableDataRecords == nil {
-					continue
-				}
-
-				common.Colors(common.ColorGreen).Printf("[+]%s 存在loadTableData SSTI模板注入漏洞, %s\n", Urls, name)
 				// var loadTabResult common.LoadTableData
 
 				if err := json.Unmarshal([]byte(body), &common.LoadTableData_poc_1); err != nil {
@@ -198,20 +193,22 @@ func RoutineRequest() {
 					continue
 				}
 
+				loadTab := common.LoadTableData_poc_1.LoadTableDataResult.LoadTableDataRecords
+
 				loadTabResult := map[string]interface{}{
 					"records": common.LoadTableData_poc_1.LoadTableDataResult.LoadTableDataRecords,
 				}
 
-				outputJSON, _ := json.Marshal(loadTabResult)
-				common.Colors(common.ColorYellow).Printf("[+++]%s\n", string(outputJSON))
+				if loadTab != nil {
+					common.Colors(common.ColorGreen).Printf("[+]%s 存在loadTableData SSTI模板注入漏洞, %s\n", Urls, name)
 
-				common.OutputFile(Urls+requestConfig.URL, requestConfig.Body, string(body))
-			case "loadTableData_poc_2":
-				if common.LoadTableData_poc_1.LoadTableDataResult.LoadTableDataRecords == nil {
-					continue
+					outputJSON, _ := json.Marshal(loadTabResult)
+					common.Colors(common.ColorYellow).Printf("[+++]%s\n", string(outputJSON))
+
+					common.OutputFile(Urls+requestConfig.URL, requestConfig.Body, string(body))
 				}
 
-				common.Colors(common.ColorGreen).Printf("[+]%s 存在loadTableData SSTI模板注入漏洞, %s\n", Urls, name)
+			case "loadTableData_poc_2":
 				// var loadTabResult common.LoadTableData
 
 				if err := json.Unmarshal([]byte(body), &common.LoadTableData_poc_2); err != nil {
@@ -219,34 +216,43 @@ func RoutineRequest() {
 					continue
 				}
 
+				loadTab := common.LoadTableData_poc_2.LoadTableDataResult.LoadTableDataRecords
+
 				loadTabResult := map[string]interface{}{
 					"records": common.LoadTableData_poc_2.LoadTableDataResult.LoadTableDataRecords,
 				}
 
-				outputJSON, _ := json.Marshal(loadTabResult)
-				common.Colors(common.ColorYellow).Printf("[+++]%s\n", string(outputJSON))
+				if loadTab != nil {
+					common.Colors(common.ColorGreen).Printf("[+]%s 存在loadTableData SSTI模板注入漏洞, %s\n", Urls, name)
 
-				common.OutputFile(Urls+requestConfig.URL, requestConfig.Body, string(body))
+					outputJSON, _ := json.Marshal(loadTabResult)
+					common.Colors(common.ColorYellow).Printf("[+++]%s\n", string(outputJSON))
+
+					common.OutputFile(Urls+requestConfig.URL, requestConfig.Body, string(body))
+
+				}
 
 			// /jmreport/queryFieldBySql 模板注入
 			case "queryFieldBySql":
-				if common.QueryFieldBySql.QueryFieldBySqlResult.QueryFieldBySqlFieldList == nil {
-					continue
-				}
-				common.Colors(common.ColorGreen).Printf("[+]%s 存在queryFieldBySql模板注入漏洞\n", Urls)
-
 				if err := json.Unmarshal([]byte(body), &common.QueryFieldBySql); err != nil {
 					common.Colors(common.ColorRed).Printf("[*]解析 json 失败, %v\n", err)
 					continue
 				}
+
+				fieldList := common.QueryFieldBySql.QueryFieldBySqlResult.QueryFieldBySqlFieldList
+
 				queryFieldBySqlResult := map[string]interface{}{
 					"fieldList": common.QueryFieldBySql.QueryFieldBySqlResult.QueryFieldBySqlFieldList,
 				}
 
-				outputJSON, _ := json.Marshal(queryFieldBySqlResult)
-				common.Colors(common.ColorYellow).Printf("[+++]%s\n", string(outputJSON))
+				if fieldList != nil {
+					common.Colors(common.ColorGreen).Printf("[+]%s 存在queryFieldBySql模板注入漏洞\n", Urls)
 
-				common.OutputFile(Urls+requestConfig.URL, requestConfig.Body, string(body))
+					outputJSON, _ := json.Marshal(queryFieldBySqlResult)
+					common.Colors(common.ColorYellow).Printf("[+++]%s\n", string(outputJSON))
+
+					common.OutputFile(Urls+requestConfig.URL, requestConfig.Body, string(body))
+				}
 
 			case "passwordChange":
 				common.Colors(common.ColorGreen).Printf("[+]%s 存在 %s 漏洞\n", Urls, name)
