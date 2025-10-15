@@ -444,6 +444,23 @@ func RoutineRequest() {
 					common.Colors(common.ColorYellow).Printf("[+++]message: %s\n", showResult.Message)
 				}
 
+			// parseSql接口SQL注入
+			case "parseSql":
+				var parseSqlResult common.ParseSql
+
+				if err := json.Unmarshal([]byte(body), &parseSqlResult); err != nil {
+					common.Colors(common.ColorRed).Printf("[*]解析 json 失败, %v\n", err)
+					continue
+				}
+
+				fieldName := parseSqlResult.ParseSqlResult.ParseSqlFields[0].FieldName
+				fieldTxt := parseSqlResult.ParseSqlResult.ParseSqlFields[0].FieldTxt
+
+				if fieldName == "schema_name" || fieldTxt == "SCHEMA_NAME" {
+					common.Colors(common.ColorGreen).Printf("[+]%s 存在parseSql SQL注入漏洞\n", Urls)
+					common.Colors(common.ColorYellow).Printf("[+++]fieldName: %s, fieldTxt: %s\n", fieldName, fieldTxt)
+				}
+
 			// commonController 接口任意文件上传漏洞
 			// 未复现
 			case "commonController":
