@@ -166,7 +166,9 @@ func RoutineRequest() {
 
 			// /jmreport/qurestSql 接口SQL注入
 			case "qurestSql":
-
+				if strings.Contains(string(body), "发布模式不允许使用在线配置") {
+					continue
+				}
 				var sendMsgResults common.QurestSql
 
 				if err := json.Unmarshal([]byte(body), &sendMsgResults); err != nil {
@@ -186,6 +188,9 @@ func RoutineRequest() {
 
 			// /jmreport/loadTableData SSTI模板注入漏洞
 			case "loadTableData_poc_1":
+				if strings.Contains(string(body), "发布模式不允许使用在线配置") {
+					continue
+				}
 				common.Colors(common.ColorGreen).Printf("[+]%s 存在loadTableData SSTI模板注入漏洞, %s\n", Urls, name)
 				// var loadTabResult common.LoadTableData
 
@@ -239,7 +244,7 @@ func RoutineRequest() {
 
 			case "passwordChange":
 				common.Colors(common.ColorGreen).Printf("[+]%s 存在 %s 漏洞\n", Urls, name)
-				common.Colors(common.ColorGreen).Printf("[+++]重置账号密码为 [jeecg/YioVke@1743]")
+				common.Colors(common.ColorGreen).Println("[+++]重置账号密码为 [jeecg/YioVke@1743]")
 
 				common.OutputFile(Urls+requestConfig.URL, requestConfig.Body, string(body))
 
@@ -340,7 +345,7 @@ func RoutineRequest() {
 
 			// /sys/ng-alain/getDictItemsByTable SQL注入漏洞
 			case "getDictItemsByTable":
-				common.Colors(common.ColorGreen).Printf("[+]%s 存在getDictItemsByTableSQL注入漏洞\n", Urls)
+				common.Colors(common.ColorGreen).Printf("[+]%s 存在getDictItemsByTable SQL注入漏洞\n", Urls)
 
 				var getDictItemsByTableResult common.GetDictItemsByTable
 
