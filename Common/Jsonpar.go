@@ -101,3 +101,12 @@ type AviatorScript struct {
 type Show struct {
 	Message string `json:"message"`
 }
+
+type ParseSql struct {
+	ParseSqlResult struct {
+		ParseSqlFields []struct {
+			FieldName string `json:"fieldName"`
+			FieldTxt  string `json:"fieldTxt"`
+		} `json:"fields"`
+	} `json:"result"`
+}
