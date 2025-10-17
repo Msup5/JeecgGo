@@ -357,14 +357,18 @@ func RoutineRequest() {
 
 			// /sys/ng-alain/getDictItemsByTable SQL注入漏洞
 			case "getDictItemsByTable":
-				common.Colors(common.ColorGreen).Printf("[+]%s 存在getDictItemsByTable SQL注入漏洞\n", Urls)
-
 				var getDictItemsByTableResult common.GetDictItemsByTable
 
 				if err := json.Unmarshal([]byte(body), &getDictItemsByTableResult); err != nil {
-					common.Colors(common.ColorRed).Printf("[*]解析 json 失败, %v\n", err)
+					common.Colors(common.ColorRed).Printf("[*]解析 json 失败, 响应内容为空, %v\n", err)
 					continue
 				}
+
+				if len(getDictItemsByTableResult) == 0 {
+					continue
+				}
+
+				common.Colors(common.ColorGreen).Printf("[+]%s 存在getDictItemsByTable SQL注入漏洞\n", Urls)
 
 				username := getDictItemsByTableResult[0].Username
 				password := getDictItemsByTableResult[0].Password
