@@ -148,13 +148,18 @@ func RoutineRequest() {
 			switch name {
 			// /sys/dict/queryTableData SQL注入
 			case "queryTableData":
-				common.Colors(common.ColorGreen).Printf("[+]%s 存在 %s 漏洞\n", Urls, name)
 				var queryTableDataResults common.QueryTableData
 
 				if err := json.Unmarshal([]byte(body), &queryTableDataResults); err != nil {
 					common.Colors(common.ColorRed).Printf("[*]解析 json 失败, %v\n", err)
 					continue
 				}
+
+				if queryTableDataResults.QueryTableDataResult == nil {
+					continue
+				}
+
+				common.Colors(common.ColorGreen).Printf("[+]%s 存在 %s 漏洞\n", Urls, name)
 
 				value := queryTableDataResults.QueryTableDataResult[1].Value
 				text := queryTableDataResults.QueryTableDataResult[1].Text
@@ -255,10 +260,19 @@ func RoutineRequest() {
 				}
 
 			case "passwordChange":
-				common.Colors(common.ColorGreen).Printf("[+]%s 存在 %s 漏洞\n", Urls, name)
-				common.Colors(common.ColorGreen).Println("[+++]重置账号密码为 [jeecg/YioVke@1743]")
+				var passwordChangeResult common.PasswordChange
 
-				common.OutputFile(Urls+requestConfig.URL, requestConfig.Body, string(body))
+				if err := json.Unmarshal([]byte(body), &passwordChangeResult); err != nil {
+					common.Colors(common.ColorRed).Printf("[*]解析 json 失败, %v\n", err)
+					continue
+				}
+
+				if strings.Contains(passwordChangeResult.Message, "修改完成") {
+					common.Colors(common.ColorGreen).Printf("[+]%s 存在 %s 漏洞\n", Urls, name)
+					common.Colors(common.ColorYellow).Println("[+++]重置账号密码为 [jeecg/YioVke@1743]")
+
+					common.OutputFile(Urls+requestConfig.URL, requestConfig.Body, string(body))
+				}
 
 			case "checkOnlyUser", "querySysUser":
 				common.Colors(common.ColorGreen).Printf("[+]%s 存在%s信息泄露漏洞\n", Urls, name)
@@ -283,13 +297,18 @@ func RoutineRequest() {
 
 			// 目录遍历漏洞
 			case "fileTree":
-				common.Colors(common.ColorGreen).Printf("[+]%s 存在目录遍历漏洞\n", Urls)
 				var fileTree common.FileTree
 
 				if err := json.Unmarshal([]byte(body), &fileTree); err != nil {
 					common.Colors(common.ColorRed).Printf("[*]解析 json 失败, %v\n", err)
 					continue
 				}
+
+				if fileTree.FileTreeResult == nil {
+					continue
+				}
+
+				common.Colors(common.ColorGreen).Printf("[+]%s 存在目录遍历漏洞\n", Urls)
 
 				key1 := fileTree.FileTreeResult[1].Key
 				key2 := fileTree.FileTreeResult[2].Key
@@ -342,14 +361,18 @@ func RoutineRequest() {
 				}
 			// getDictItemsByTable 后台未授权SQL注入漏洞
 			case "getDictItemsByTableBackSql":
-				common.Colors(common.ColorGreen).Printf("[+]%s 存在getDictItemsByTable后台未授权SQL注入漏洞\n", Urls)
-
 				var getDictItemsByTableBackSqlResult common.GetDictItemsByTableBackSql
 
 				if err := json.Unmarshal([]byte(body), &getDictItemsByTableBackSqlResult); err != nil {
 					common.Colors(common.ColorRed).Printf("[*]解析 json 失败, %v\n", err)
 					continue
 				}
+
+				if len(getDictItemsByTableBackSqlResult) == 0 {
+					continue
+				}
+
+				common.Colors(common.ColorGreen).Printf("[+]%s 存在getDictItemsByTable后台未授权SQL注入漏洞\n", Urls)
 
 				common.Colors(common.ColorYellow).Printf("[+++]label: %s, value: %s\n", getDictItemsByTableBackSqlResult[0].Label, getDictItemsByTableBackSqlResult[0].Value)
 
@@ -360,7 +383,7 @@ func RoutineRequest() {
 				var getDictItemsByTableResult common.GetDictItemsByTable
 
 				if err := json.Unmarshal([]byte(body), &getDictItemsByTableResult); err != nil {
-					common.Colors(common.ColorRed).Printf("[*]解析 json 失败, 响应内容为空, %v\n", err)
+					common.Colors(common.ColorRed).Printf("[*]解析 json 失败, %v\n", err)
 					continue
 				}
 
