@@ -110,3 +110,7 @@ type ParseSql struct {
 		} `json:"fields"`
 	} `json:"result"`
 }
+
+type PasswordChange struct {
+	Message string `json:"message"`
+}
