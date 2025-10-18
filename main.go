@@ -7,6 +7,6 @@ import (
 func main() {
 	// flag.Parse()
 	// Core.Flags()
-	Core.RoutineRequest()
+	Core.HandleResponse()
 	// common.ReadFile()
 }

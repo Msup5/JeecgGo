@@ -20,7 +20,7 @@ var (
 func init() {
 	flag.StringVar(&Urls, "u", "", "url")
 	flag.StringVar(&Token, "x", "", "x-access-token")
-	flag.StringVar(&VulName, "n", "", "vulnerability name (loadTableData/queryFieldBySql/freemaker)")
+	flag.StringVar(&VulName, "n", "", "vulnerability name (loadTableData/queryFieldBySql/sendMsg)")
 	flag.StringVar(&Command, "c", "", "execute command")
 	// flag.StringVar(&Output, "o", "", "output file")
 	flag.IntVar(&SetTime, "s", 0, "sleep time")
