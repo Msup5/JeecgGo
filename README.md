@@ -1,5 +1,5 @@
 # JeecgBoot Go版本综合漏洞利用工具
-JeecgGo 综合漏洞利用工具, 基于Go语言开发, 该工具结合作者在工作中测试时遇到的问题进行改进。使用时, 需下载主程序以及Config.yaml（POC）文件放在同一目录下运行, 运行结束后会生成result.json文件, 里边包含检测到存在漏洞的URL、payload以及响应内容。
+JeecgGo 综合漏洞利用工具, 基于Go语言开发, 该工具结合作者在工作中测试时遇到的问题进行改进。使用时, 需下载主程序以及**Config.yaml**文件放在同一目录下运行, 运行结束后会生成result.json文件, 里边包含检测到存在漏洞的URL、payload以及响应内容。
 # 漏洞如下
 ## SQL注入
   queryTableData SQL注入漏洞
@@ -31,7 +31,7 @@ JeecgGo 综合漏洞利用工具, 基于Go语言开发, 该工具结合作者在
 
   AviatorScript 表达式注入漏洞
 ## 文件上传
-  /jmreport/upload 接口未授权任意文件上传漏洞
+  jmreport/upload 接口未授权任意文件上传漏洞
 
   commonController.do  任意文件上传漏洞
 ## 信息泄露
@@ -42,7 +42,8 @@ JeecgGo 综合漏洞利用工具, 基于Go语言开发, 该工具结合作者在
   httptrace 信息泄露漏洞
 
   dataSource_list 接口数据库账号密码泄露
-## passwordChange任意用户密码重置漏洞
+## fileTree 目录遍历漏洞
+## passwordChange 任意用户密码重置漏洞
 # 使用说明
 简单用法
 ```
@@ -59,7 +60,7 @@ JeecgGo.exe -u http://127.0.0.1/jeecg-boot/ -n queryFieldBySql -c "echo 111"
 JeecgGo.exe -u http://127.0.0.1/jeecg-boot/ -n queryFieldBySql -c id -x token
 ```
 # 更新
-
+- 2025/10/18: 对代码结构进行重构, 便于后续新增POC及内容调整。
 - 2025/10/15: 增加了parseSql SQL注入漏洞
 
 # 免责声明
