@@ -83,6 +83,9 @@ func HandleRequest(url, token, method string, body []byte) []byte {
 		return nil
 	}
 
+	// 延时请求
+	time.Sleep(time.Second * time.Duration(SetTime))
+
 	return resBody
 }
 
@@ -273,7 +276,7 @@ func HandleResponse() {
 				continue
 			}
 
-		// 目录遍历漏洞
+		// fileTree 目录遍历漏洞
 		case "fileTree":
 			url := common.JoinURL(Urls, data.URL)
 			body := HandleRequest(url, Token, data.Method, []byte(data.Body))
