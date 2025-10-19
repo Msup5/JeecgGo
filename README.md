@@ -42,8 +42,8 @@ JeecgGo 综合漏洞利用工具, 基于Go语言开发, 该工具结合作者在
   httptrace 信息泄露漏洞
 
   dataSource_list 接口数据库账号密码泄露
-## 目录遍历漏洞
-## passwordChange任意用户密码重置漏洞
+## fileTree 目录遍历漏洞
+## passwordChange 任意用户密码重置漏洞
 # 使用说明
 简单用法
 ```
