@@ -31,7 +31,7 @@ JeecgGo 综合漏洞利用工具, 基于Go语言开发, 该工具结合作者在
 
   AviatorScript 表达式注入漏洞
 ## 文件上传
-  /jmreport/upload 接口未授权任意文件上传漏洞
+  jmreport/upload 接口未授权任意文件上传漏洞
 
   commonController.do  任意文件上传漏洞
 ## 信息泄露
