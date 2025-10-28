@@ -66,7 +66,7 @@ func HandleRequest(url, token, method string, body []byte) []byte {
 
 	client := &http.Client{
 		Transport: tls,
-		Timeout:   time.Second * 30,
+		Timeout:   time.Second * 15,
 	}
 
 	response, err := client.Do(request)
@@ -289,7 +289,7 @@ func HandleResponse() {
 			url := common.JoinURL(Urls, data.URL)
 			body := HandleRequest(url, Token, data.Method, []byte(data.Body))
 			if strings.Contains(string(body), "未找到对应实体") {
-				common.Colors(common.ColorGreen).Printf("[+]可能存在 passwordChange 漏洞, 响应内容为未找到对应实体, 请使用存在的账号进行测试")
+				common.Colors(common.ColorGreen).Println("[+]可能存在 passwordChange 漏洞, 响应内容为未找到对应实体, 请使用存在的账号进行测试")
 				continue
 			}
 			if !HandleFunc(name, url, []byte(data.Body), body, &common.PasswordChange{}) {
