@@ -295,6 +295,14 @@ func HandleResponse() {
 			if !HandleFunc(name, url, []byte(data.Body), body, &common.PasswordChange{}) {
 				continue
 			}
+
+		// uploadImgByHttp SSRF 漏洞
+		case "uploadImgByHttp":
+			url := common.JoinURL(Urls, data.URL)
+			body := HandleRequest(url, Token, data.Method, []byte(data.Body))
+			if !HandleFunc(name, url, []byte(data.Body), body, &common.UploadImgByHttp{}) {
+				continue
+			}
 		}
 	}
 }
