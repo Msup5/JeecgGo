@@ -44,6 +44,9 @@ JeecgGo 综合漏洞检测工具, 基于Go语言开发, 该工具结合作者在
   dataSource_list 接口数据库账号密码泄露
 ## fileTree 目录遍历漏洞
 ## passwordChange 任意用户密码重置漏洞
+
+## uploadImgByHttp SSRF漏洞
+
 # 使用说明
 简单用法
 ```
