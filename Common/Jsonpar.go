@@ -326,3 +326,18 @@ func (p *PasswordChange) IsEmpty() bool {
 func (p *PasswordChange) Print() {
 	Colors(ColorYellow).Println("[+++]重置账号密码为 [jeecg/YioVke@1743]")
 }
+
+// uploadImgByHttp SSRF 漏洞
+type UploadImgByHttp struct {
+	Success bool   `json:"success"`
+	Code    int    `json:"code"`
+	Result  string `json:"result"`
+}
+
+func (u *UploadImgByHttp) IsEmpty() bool {
+	return !(u.Code == 200 && u.Success)
+}
+
+func (u *UploadImgByHttp) Print() {
+	Colors(ColorYellow).Printf("[+++]uploadPath: %s\n", u.Result)
+}
