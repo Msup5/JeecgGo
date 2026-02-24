@@ -61,8 +61,10 @@ JeecgGo.exe -u http://127.0.0.1/jeecg-boot/ -n loadTableData -c "echo 111"
 ```
 check、column SQL注入基于延时技术检测漏洞是否存在，主要靠比较响应时间的差异。网络波动可能会直接影响响应时间，所以这种容易产生误报，不可避免。为确保准确性，强烈建议对检测出的漏洞进行手动验证。
 # 更新
+
 - 2025/10/18: 对代码结构进行重构, 便于后续新增POC及内容调整
 - 2025/10/15: 增加了parseSql SQL注入漏洞
+- 2026/2/24: 增加了uploadImgByHttp SSRF漏洞
 
 # 免责声明
 
